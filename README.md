@@ -9,8 +9,8 @@ Tested with Python 3.10.
  1. Clone repository:
 
 ```bash
-git clone https://github.com/VisualComputingInstitute/stable-e2e-ft.git
-cd stable-e2e-ft
+git clone https://github.com/VisualComputingInstitute/diffusion-e2e-ft.git
+cd diffusion-e2e-ft
 ```
 
 2. Install dependencies:
