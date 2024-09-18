@@ -1,0 +1,13 @@
+accelerate==0.27.2
+diffusers==0.30.2
+numpy==1.26.4
+tokenizers==0.15.2
+torch==2.2.0
+torchvision==0.17.0
+transformers==4.37.2
+xformers==0.0.24
+h5py
+opencv-python
+matplotlib
+scipy
+setuptools
