@@ -1,6 +1,6 @@
 # Fine-Tuning Image-Conditional Diffusion Models
 
-[[`Paper`](https://arxiv.org/abs/2409.11355)] [[`HF demo`](https://huggingface.co/spaces/GonzaloMG/diffusion-e2e-ft)] [[`Project Page`](https://gonzalomartingarcia.github.io/diffusion-e2e-ft/)] [[`BibTeX`](#-Citation)]
+[[`Paper`](https://arxiv.org/abs/2409.11355)] [[`Project Page`](https://gonzalomartingarcia.github.io/diffusion-e2e-ft/)] [[`HF demo depth`](https://huggingface.co/spaces/GonzaloMG/marigold-e2e-ft-depth)] [[`HF demo normals`](https://huggingface.co/spaces/GonzaloMG/marigold-e2e-ft-normals)] [[`BibTeX`](#-Citation)]
 
 <img src="assets/teaser_images.png" width="600">
 
