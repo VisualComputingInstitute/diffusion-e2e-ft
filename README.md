@@ -126,7 +126,7 @@ Inference time is for a single 576x768-pixel image, evaluated on an NVIDIA RTX 4
 If you use our work in your research, please use the following BibTeX entry.
 
 ```
-@article{garcia2024diffusione2eft,
+@article{martingarcia2024diffusione2eft,
   title   = {Fine-Tuning Image-Conditional Diffusion Models is Easier than You Think},
   author  = {Gonzalo Martin Garcia and Karim Abou Zeid and Christian Schmidt and Daan de Geus and Alexander Hermans and Bastian Leibe},
   journal = {arXiv preprint arXiv:2409.11355},
