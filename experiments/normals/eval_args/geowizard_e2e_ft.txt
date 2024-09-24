@@ -1,0 +1,7 @@
+--exp_name GeoWizard
+--exp_id GeoWizard-E2E-FT
+--ckpt_path GonzaloMG/geowizard-e2e-ft
+--model_type geowizard
+--eval_data all
+--processing_res 0
+--seed 1234

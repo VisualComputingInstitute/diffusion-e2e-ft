@@ -15,20 +15,19 @@ from diffusers import (
     DDIMScheduler,
     AutoencoderKL,
 )
-from geowizard.models.unet_2d_condition import UNet2DConditionModel
+from ..models.unet_2d_condition import UNet2DConditionModel
 from diffusers.utils import BaseOutput
 from transformers import CLIPTextModel, CLIPTokenizer
 from transformers import CLIPImageProcessor, CLIPVisionModelWithProjection
 import torchvision.transforms.functional as TF
 from torchvision.transforms import InterpolationMode
 
-from geowizard.utils.image_util import resize_max_res,chw2hwc,colorize_depth_maps
-from geowizard.utils.depth_ensemble import ensemble_depths
-from geowizard.utils.normal_ensemble import ensemble_normals
 import cv2
 
-# add
-from geowizard.utils.noise import pyramid_noise_like
+from ..utils.image_util import resize_max_res, chw2hwc, colorize_depth_maps
+from ..utils.depth_ensemble import ensemble_depths
+from ..utils.normal_ensemble import ensemble_normals
+from ..utils.noise import pyramid_noise_like
 
 
 class DepthNormalPipelineOutput(BaseOutput):
@@ -309,9 +308,16 @@ class DepthNormalEstimationPipeline(DiffusionPipeline):
             ).sample  # [B, 4, h, w]
 
             # compute the previous noisy sample x_t -> x_t-1
-            geo_latent = self.scheduler.step(noise_pred, t, geo_latent).prev_sample
+            scheduler_step = self.scheduler.step(
+                noise_pred, t, geo_latent
+            )
 
-        geo_latent = geo_latent
+            geo_latent = scheduler_step.prev_sample
+
+            # add
+            if i == num_inference_steps-1:
+                geo_latent = scheduler_step.pred_original_sample 
+
         torch.cuda.empty_cache()
 
         depth = self.decode_depth(geo_latent[0][None])

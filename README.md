@@ -2,7 +2,7 @@
 
 [[`Paper`](https://arxiv.org/abs/2409.11355)] [[`Project Page`](https://gonzalomartingarcia.github.io/diffusion-e2e-ft/)] [[`HF demo depth`](https://huggingface.co/spaces/GonzaloMG/marigold-e2e-ft-depth)] [[`HF demo normals`](https://huggingface.co/spaces/GonzaloMG/marigold-e2e-ft-normals)] [[`BibTeX`](#-Citation)]
 
-<img src="assets/teaser_images.png" width="600">
+<img src="assets/teaser_images.png" width="600" alt="Teaser Images">
 
 ## 🔧 Setup
 Tested with Python 3.10.
@@ -107,8 +107,6 @@ Our single-step deterministic E2E FT models outperform the previously mentioned 
 | Stable Diffusion + E2E FT   | **121ms**        | 5.4           | **9.6**        | 6.4          | **5.8**         |  30.3          |
 | Marigold + E2E FT           | **121ms**        | **5.2**       | **9.6**        | **6.2**      | **5.8**         | **30.2**       |
 | GeoWizard + E2E FT          | **254ms**        | **5.6**       | 9.8            | 6.3          | 5.9             | 30.6           |
-<!--| Marigold + `trailing`       | **121ms**        | 5.7           | 10.8           | 6.9          | 6.6             |  31.1          |
-| GeoWizard + `trailing`      | **254ms**        | 5.8           | 13.3           | 7.8          | 6.2             |  32            |-->
 
 
 | Normals Method            | Inference Time | NYUv2 Mean↓  | ScanNet Mean↓ | iBims-1 Mean↓ | Sintel Mean↓  |
@@ -116,10 +114,90 @@ Our single-step deterministic E2E FT models outperform the previously mentioned 
 | Stable Diffusion + E2E FT | **121ms**      | 16.5         | 15.3          | 16.1          | 33.5          |
 | Marigold + E2E FT         | **121ms**      | 16.2         | **14.7**      | **15.8**      | 33.5          |
 | GeoWizard + E2E FT        | **254ms**      | **16.1**     | **14.7**      | 16.2          | **33.4**      |
-<!-- | Marigold + `trailing`     | **121ms**      | 18.8         | 17.7          | 18.4          | 39.1          |
-| GeoWizard + `trailing`    | **254ms**      | 17.0         | 15.5          | 18.3          | 35.9          |-->
 
 Inference time is for a single 576x768-pixel image, evaluated on an NVIDIA RTX 4090 GPU.
+
+## 📊 Evaluation
+
+We utilize the official [Marigold](https://github.com/prs-eth/Marigold) evaluation pipeline to evaluate the affine-invariant depth estimation checkpoints, and we use the official [DSINE](https://github.com/baegwangbin/DSINE) evaluation pipeline to evaluate the surface normal estimation checkpoints. The code has been streamlined to exclude unnecessary parts, and changes have been marked.
+
+
+### Depth
+
+The Marigold evaluation datasets can be downloaded to `data/marigold_eval/` at the root of the project using the following snippet:
+```bash
+wget -r -np -nH --cut-dirs=4 -R "index.html*" -P data/marigold_eval/ https://share.phys.ethz.ch/~pf/bingkedata/marigold/evaluation_dataset/
+```
+After downloading, the folder structure should look as follows:
+```
+data
+└── marigold_eval
+    ├── diode
+    │   └── diode_val.tar
+    ├── eth3d
+    │   └── eth3d.tar
+    ├── kitti
+    │   └── kitti_eigen_split_test.tar
+    ├── nyuv2
+    │   └── nyu_labeled_extracted.tar
+    └── scannet
+        └── scannet_val_sampled_800_1.tar
+```
+
+Run the `0_infer_eval_all.sh` script to evaluate the desired model on all datasets.
+
+```bash
+./experiments/depth/eval_args/marigold_e2e_ft/0_infer_eval_all.sh
+./experiments/depth/eval_args/stable_diffusion_e2e_ft/0_infer_eval_all.sh
+./experiments/depth/eval_args/geowizard_e2e_ft/0_infer_eval_all.sh
+```
+
+The evaluation results for the selected model are located in the `experiments/depth/marigold` directory. For a given dataset, the script first performs the necessary inference, storing the estimations in a `prediction` folder. Later, these depth maps are aligned and evaluated against the ground truth. Metrics and evaluation settings are available as `.txt` files.
+
+```
+<model>
+└── <dataset>
+    ├── arguments.txt
+    ├── eval_metric
+    │   └── eval_metrics-least_square.txt
+    └── prediction
+```
+
+
+### Normals
+
+The [DSINE evaluation datasets (`dsine_eval.zip`)](https://drive.google.com/drive/folders/1t3LMJIIrSnCGwOEf53Cyg0lkSXd3M4Hm) should be extracted into the `data` folder at the root of the project.
+The folder structure should look as follows:
+```
+data
+└── dsine_eval
+   ├── ibims
+   ├── nyuv2
+   ├── oasis
+   ├── scannet
+   ├── sintel
+   └── vkitti
+```
+
+The folder `experiments/normals/eval_args` contains evaluation setting `.txt` files for each `<model>`.
+
+```bash
+python -m DSINE.projects.dsine.test \
+          experiments/normals/eval_args/<model>.txt \
+          --mode benchmark
+```
+
+Evaluation results are saved in the `experiments/normals/dsine` folder. This includes the used settings (`params.txt`) and the metrics for each `<dataset>` (`metrics.txt`).
+
+```
+dsine
+  └── <model-type/model>
+      ├── log
+      │   └── params.txt
+      └── test
+          └── <dataset>
+              └── metrics.txt
+```
 
 ## 🎓 Citation
 

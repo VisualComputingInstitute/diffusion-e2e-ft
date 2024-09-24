@@ -11,3 +11,6 @@ opencv-python
 matplotlib
 scipy
 setuptools
+omegaconf
+tabulate
+pandas

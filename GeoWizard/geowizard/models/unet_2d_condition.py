@@ -54,8 +54,7 @@ if diffusers.__version__ >'0.25':
 else:
     from diffusers.models.embeddings import PositionNet
 
-#from models.unet_2d_blocks import (
-from geowizard.models.unet_2d_blocks import (
+from ..models.unet_2d_blocks import (
     UNetMidBlock2D,
     UNetMidBlock2DCrossAttn,
     UNetMidBlock2DSimpleCrossAttn,

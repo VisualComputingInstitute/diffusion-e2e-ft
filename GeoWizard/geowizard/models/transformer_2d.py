@@ -24,7 +24,7 @@ from torch import nn
 from diffusers.configuration_utils import ConfigMixin, register_to_config
 from diffusers.models.embeddings import ImagePositionalEmbeddings
 from diffusers.utils import USE_PEFT_BACKEND, BaseOutput, deprecate, is_torch_version
-from geowizard.models.attention import BasicTransformerBlock
+from ..models.attention import BasicTransformerBlock
 from diffusers.models.embeddings import PatchEmbed, PixArtAlphaTextProjection
 from diffusers.models.lora import LoRACompatibleConv, LoRACompatibleLinear
 from diffusers.models.modeling_utils import ModelMixin

@@ -30,7 +30,7 @@ from diffusers.models.transformers.dual_transformer_2d import DualTransformer2DM
 
 from diffusers.models.normalization import AdaGroupNorm
 from diffusers.models.resnet import Downsample2D, FirDownsample2D, FirUpsample2D, KDownsample2D, KUpsample2D, ResnetBlock2D, Upsample2D
-from geowizard.models.transformer_2d import Transformer2DModel
+from ..models.transformer_2d import Transformer2DModel
 
 
 logger = logging.get_logger(__name__)  # pylint: disable=invalid-name
