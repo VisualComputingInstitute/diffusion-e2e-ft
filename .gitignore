@@ -1,5 +1,12 @@
-input/
-output/
-venv/
+.venv/
 __pycache__/
 .DS_Store
+
+/data
+/output
+/input
+
+experiments/depth/*
+experiments/normals/*
+!experiments/depth/eval_args/
+!experiments/normals/eval_args/

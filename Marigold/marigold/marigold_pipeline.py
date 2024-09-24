@@ -459,6 +459,10 @@ class MarigoldPipeline(DiffusionPipeline):
             )
         
             latent = scheduler_step.prev_sample
+
+            # add
+            if i == num_inference_steps-1:
+                latent = scheduler_step.pred_original_sample 
         
         if normals:
             # add

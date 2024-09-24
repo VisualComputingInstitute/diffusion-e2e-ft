@@ -81,13 +81,11 @@ if "__main__" == __name__:
         "--denoise_steps",
         type=int,
         default=1,
-        help="Diffusion denoising steps, more steps results in higher accuracy but slower inference speed. For the original (DDIM) version, it's recommended to use 10-50 steps, while for LCM 1-4 steps.",
     )
     parser.add_argument(
         "--ensemble_size",
         type=int,
         default=1,
-        help="Number of predictions to be ensembled, more inference gives better results but runs slower.",
     )
     parser.add_argument(
         "--half_precision",
@@ -311,7 +309,7 @@ if "__main__" == __name__:
                 show_progress_bar=True, 
                 resample_method=resample_method,
                 # add
-                normals     = normals,
+                normals   = normals,
                 noise     = noise,
             )
 

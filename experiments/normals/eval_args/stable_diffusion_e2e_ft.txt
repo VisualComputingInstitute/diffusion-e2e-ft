@@ -1,0 +1,7 @@
+--exp_name Stable-Diffusion
+--exp_id Stable-Diffusion-E2E-FT
+--ckpt_path GonzaloMG/stable-diffusion-e2e-ft-normals
+--model_type marigold
+--eval_data all
+--processing_res 0
+--seed 1234
