@@ -179,12 +179,20 @@ data
    └── vkitti
 ```
 
-The folder `experiments/normals/eval_args` contains evaluation setting `.txt` files for each `<model>`.
+Run the following commands to evaluate the models on all datasets.
 
 ```bash
 python -m DSINE.projects.dsine.test \
-          experiments/normals/eval_args/<model>.txt \
-          --mode benchmark
+    experiments/normals/eval_args/marigold_e2e_ft.txt \
+    --mode benchmark
+
+python -m DSINE.projects.dsine.test \
+    experiments/normals/eval_args/stable_diffusion_e2e_ft.txt \
+    --mode benchmark
+
+python -m DSINE.projects.dsine.test \
+    experiments/normals/eval_args/geowizard_e2e_ft.txt \
+    --mode benchmark
 ```
 
 Evaluation results are saved in the `experiments/normals/dsine` folder. This includes the used settings (`params.txt`) and the metrics for each `<dataset>` (`metrics.txt`).
