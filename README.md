@@ -148,7 +148,11 @@ Run the `0_infer_eval_all.sh` script to evaluate the desired model on all datase
 
 ```bash
 ./experiments/depth/eval_args/marigold_e2e_ft/0_infer_eval_all.sh
+```
+```bash
 ./experiments/depth/eval_args/stable_diffusion_e2e_ft/0_infer_eval_all.sh
+```
+```bash
 ./experiments/depth/eval_args/geowizard_e2e_ft/0_infer_eval_all.sh
 ```
 
@@ -185,11 +189,13 @@ Run the following commands to evaluate the models on all datasets.
 python -m DSINE.projects.dsine.test \
     experiments/normals/eval_args/marigold_e2e_ft.txt \
     --mode benchmark
-
+```
+```bash
 python -m DSINE.projects.dsine.test \
     experiments/normals/eval_args/stable_diffusion_e2e_ft.txt \
     --mode benchmark
-
+```
+```bash
 python -m DSINE.projects.dsine.test \
     experiments/normals/eval_args/geowizard_e2e_ft.txt \
     --mode benchmark
