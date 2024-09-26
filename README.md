@@ -220,7 +220,7 @@ If you use our work in your research, please use the following BibTeX entry.
 ```
 @article{martingarcia2024diffusione2eft,
   title   = {Fine-Tuning Image-Conditional Diffusion Models is Easier than You Think},
-  author  = {Gonzalo Martin Garcia and Karim Abou Zeid and Christian Schmidt and Daan de Geus and Alexander Hermans and Bastian Leibe},
+  author  = {Martin Garcia, Gonzalo and Abou Zeid, Karim and Schmidt, Christian and de Geus, Daan and Hermans, Alexander and Leibe, Bastian},
   journal = {arXiv preprint arXiv:2409.11355},
   year    = {2024}
 }
