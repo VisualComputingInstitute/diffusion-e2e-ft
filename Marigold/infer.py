@@ -19,8 +19,8 @@
 # --------------------------------------------------------------------------
 
 # @GonzaloMartinGarcia
-# ! The following code is built upon Marigold's infer.py. I have adapted it to also run evaluation inference for my monocular 
-# rgb to metric depth diffusion models. All my changes to the original infer.py are marked with a '# add' comment.
+# The following code is built upon Marigold's infer.py, and was adapted to include some new settings.
+# All additions made are marked with # add.
 
 
 import argparse

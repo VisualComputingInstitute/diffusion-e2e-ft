@@ -100,7 +100,7 @@ By using the correct `trailing` timestep spacing, it is possible to sample singl
 
 Our single-step deterministic E2E FT models outperform the previously mentioned diffusion estimators.
 
-## 📋 Performance
+## 📋 Metrics
 
 | Depth Method                | Inference Time   | NYUv2 AbsRel↓ | KITTI AbsRel↓  | ETH3D AbsRel↓| ScanNet AbsRel↓ | DIODE AbsRel↓  |
 |-----------------------------|------------------|---------------|----------------|--------------|-----------------|----------------|
@@ -119,7 +119,7 @@ Inference time is for a single 576x768-pixel image, evaluated on an NVIDIA RTX 4
 
 ## 📊 Evaluation
 
-We utilize the official [Marigold](https://github.com/prs-eth/Marigold) evaluation pipeline to evaluate the affine-invariant depth estimation checkpoints, and we use the official [DSINE](https://github.com/baegwangbin/DSINE) evaluation pipeline to evaluate the surface normal estimation checkpoints. The code has been streamlined to exclude unnecessary parts, and changes have been marked.
+We utilize the official [Marigold](https://github.com/prs-eth/Marigold) evaluation pipeline to evaluate the affine-invariant depth estimation checkpoints, and we use the official [DSINE](https://github.com/baegwangbin/DSINE) evaluation pipeline to evaluate the surface normals estimation checkpoints. The code has been streamlined to exclude unnecessary parts, and changes have been marked.
 
 
 ### Depth
@@ -212,6 +212,132 @@ dsine
           └── <dataset>
               └── metrics.txt
 ```
+
+## 🏋️ Training
+
+### Datasets
+
+The fine-tuned models are trained on the [Hypersim](https://github.com/apple/ml-hypersim) and [Virtual KITTI 2](https://europe.naverlabs.com/research/computer-vision/proxy-virtual-worlds-vkitti-2/) datasets.
+
+
+#### Hypersim
+
+Download the [Hypersim](https://github.com/apple/ml-hypersim) dataset using the [dataset_download_images.py](https://github.com/apple/ml-hypersim/blob/20f398f4387aeca73175494d6a2568f37f372150/code/python/tools/dataset_download_images.py) script and unzip the files to `data/hypersim/raw_data` at the root of the project. Download the scene split file from the [Hypersim repository](https://github.com/apple/ml-hypersim/blob/main/evermotion_dataset/analysis/metadata_images_split_scene_v1.csv) and place it in `data/hypersim`.
+
+```
+data
+└── hypersim
+    ├── metadata_images_split_scene_v1.csv
+    └── raw_data
+        ├── ai_001_001
+        ├── ...
+        └── ai_055_010
+```
+
+Run Marigold's preprocessing script, which will save the processed data to `data/hypersim/processed`.
+```bash
+python Marigold/script/dataset_preprocess/hypersim/preprocess_hypersim.py \
+  --split_csv data/hypersim/metadata_images_split_scene_v1.csv
+```
+
+Download the surface normals in `png` format using Hypersim's [`download.py`](https://github.com/apple/ml-hypersim/tree/20f398f4387aeca73175494d6a2568f37f372150/contrib/99991) script.
+```bash
+./download.py --contains normal_cam.png --silent
+```
+Place the downloaded surface normals in `data/hypersim/processed/normals`.
+
+The final processed file structure should look like this:
+```
+data
+└── hypersim
+    └── processed
+        ├── normals
+        │   ├── ai_001_001
+        │   ├── ...
+        │   └── ai_055_010
+        └── train
+            ├── ai_001_001
+            ├── ...
+            ├── ai_055_010
+            └── filename_meta_train.csv
+```
+
+#### Virtual KITTI 2
+
+Download the RGB (`vkitti_2.0.3_rgb.tar`) and depth (`vkitti_2.0.3_depth.tar`) files from the [official website](https://europe.naverlabs.com/research/computer-vision/proxy-virtual-worlds-vkitti-2/). Place them in `data/virtual_kitti_2` at the root of the project and finally extract them using the following shell commands.
+
+```bash
+mkdir vkitti_2.0.3_rgb && tar -xf vkitti_2.0.3_rgb.tar -C vkitti_2.0.3_rgb
+mkdir vkitti_2.0.3_depth && tar -xf vkitti_2.0.3_depth.tar -C vkitti_2.0.3_depth
+```
+
+Virtual KITTI 2 does not provide surface normals. Therefore, we estimate them from the depth maps using [discontinuity-aware gradient filters](https://github.com/fengyi233/depth-to-normal-translator). Run our provided script to generate the normals which will be saved to `data/virtual_kitti_2/vkitti_DAG_normals`.
+
+```bash
+python depth-to-normal-translator/python/gen_vkitti_normals.py
+```
+
+The final processed file structure should look like this:
+
+```
+data
+└── virtual_kitti_2
+    ├── vkitti_2.0.3_depth
+    │   ├── Scene01
+    │   ├── Scene02
+    │   ├── Scene06
+    │   ├── Scene18
+    │   └── Scene20
+    ├── vkitti_2.0.3_rgb
+    │   ├── Scene01
+    │   ├── Scene02
+    │   ├── Scene06
+    │   ├── Scene18
+    │   └── Scene20
+    └── vkitti_DAG_normals
+        ├── Scene01
+        ├── Scene02
+        ├── Scene06
+        ├── Scene18
+        └── Scene20
+```
+
+### E2E FT Model Training
+
+To train the end-to-end fine-tuned depth and normals models, run the scripts in the `training/scripts` directory:
+```bash
+./training/scripts/train_marigold_e2e_ft_depth.sh
+```
+```bash
+./training/scripts/train_stable_diffusion_e2e_ft_depth.sh
+```
+```bash
+./training/scripts/train_marigold_e2e_ft_normals.sh
+```
+```bash
+./training/scripts/train_stable_diffusion_e2e_ft_normals.sh
+```
+```bash
+./training/scripts/train_geowizard_e2e_ft.sh
+```
+
+The fine-tuned models will be saved to `model-finetuned` at the root of the project.
+
+```bash
+model-finetuned
+    └── <model>
+        ├── arguments.txt
+        ├── model_index.json
+        ├── text_encoder # or image_encoder for GeoWizard
+        ├── tokenizer
+        ├── feature_extractor
+        ├── scheduler
+        ├── vae
+        └── unet 
+```
+
+> [!NOTE]  
+> For multi GPU training, set the desired number of devices and nodes in the `training/scripts/multi_gpu.yaml` file and replace `accelerate launch` with `accelerate launch --multi_gpu --config_file training/scripts/multi_gpu.yaml` in the training scripts.
 
 ## 🎓 Citation
 

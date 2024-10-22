@@ -1,12 +1,17 @@
 .venv/
 __pycache__/
 .DS_Store
+wandb/
+.vscode/
 
 /data
 /output
 /input
+/model-finetuned
 
 experiments/depth/*
 experiments/normals/*
 !experiments/depth/eval_args/
 !experiments/normals/eval_args/
+
+metadata_images_split_scene_v1.csv

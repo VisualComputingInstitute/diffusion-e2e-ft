@@ -1,13 +1,8 @@
 # A reimplemented version in public environments by Xiao Fu and Mu Hu
 
-import pickle
-import os
-import h5py
 import numpy as np
-import cv2
 import torch
 import torch.nn as nn
-import glob
 
 
 def init_image_coor(height, width):
