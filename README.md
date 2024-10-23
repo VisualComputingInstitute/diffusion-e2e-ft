@@ -4,6 +4,11 @@
 
 <img src="assets/teaser_images.png" width="600" alt="Teaser Images">
 
+## 📢 News
+- 2024-10-23: Training code release.
+- 2024-09-24: Evaluation code release.
+- 2024-09-18: Inference code release.
+
 ## 🔧 Setup
 Tested with Python 3.10.
  1. Clone repository:
