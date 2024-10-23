@@ -6,8 +6,6 @@ import torch
 from PIL import Image
 
 
-
-
 def resize_max_res(img: Image.Image, max_edge_resolution: int) -> Image.Image:
     """
     Resize image to limit maximum edge length while keeping aspect ratio.

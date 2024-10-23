@@ -1,6 +1,7 @@
 # Adapted from Marigold ：https://github.com/prs-eth/Marigold
 
-# @GonzaloMartinGarcia, all new additions to the GeoWizard code have been marked with # add.
+# @GonzaloMartinGarcia, 
+# All new additions to the GeoWizard code have been marked with # add.
 
 import argparse
 import os
@@ -14,11 +15,9 @@ from tqdm.auto import tqdm
 from geowizard.models.geowizard_pipeline import DepthNormalEstimationPipeline
 from geowizard.utils.seed_all import seed_all
 from geowizard.utils.depth2normal import *
-from diffusers import DiffusionPipeline, DDIMScheduler, AutoencoderKL
+from diffusers import DDIMScheduler, AutoencoderKL
 from geowizard.models.unet_2d_condition import UNet2DConditionModel
 from transformers import CLIPImageProcessor, CLIPVisionModelWithProjection
-import torchvision.transforms.functional as TF
-from torchvision.transforms import InterpolationMode
 from geowizard.utils.seed_all import seed_all
 
 if __name__=="__main__":
@@ -198,14 +197,12 @@ if __name__=="__main__":
          scheduler = DDIMScheduler.from_pretrained(checkpoint_path, subfolder='scheduler')
     image_encoder = CLIPVisionModelWithProjection.from_pretrained(checkpoint_path, subfolder="image_encoder")
     feature_extractor = CLIPImageProcessor.from_pretrained(checkpoint_path, subfolder="feature_extractor")
-    unet = UNet2DConditionModel.from_pretrained(checkpoint_path, subfolder="unet") # load the UNet from checkpoint
+    unet = UNet2DConditionModel.from_pretrained(checkpoint_path, subfolder="unet")
     pipe = DepthNormalEstimationPipeline(vae=vae,
                                 image_encoder=image_encoder,
                                 feature_extractor=feature_extractor,
                                 unet=unet,
                                 scheduler=scheduler)
-    
-    print(unet.config)
 
     logging.info("loading pipeline whole successfully.")
 
