@@ -5,6 +5,7 @@
 <img src="assets/teaser_images.png" width="600" alt="Teaser Images">
 
 ## 📢 News
+- 2024-10-28: Accepted to WACV 2025.
 - 2024-10-23: Training code release.
 - 2024-09-24: Evaluation code release.
 - 2024-09-18: Inference code release.
@@ -349,10 +350,10 @@ model-finetuned
 If you use our work in your research, please use the following BibTeX entry.
 
 ```
-@article{martingarcia2024diffusione2eft,
-  title   = {Fine-Tuning Image-Conditional Diffusion Models is Easier than You Think},
-  author  = {Martin Garcia, Gonzalo and Abou Zeid, Karim and Schmidt, Christian and de Geus, Daan and Hermans, Alexander and Leibe, Bastian},
-  journal = {arXiv preprint arXiv:2409.11355},
-  year    = {2024}
+@InProceedings{martingarcia2024diffusione2eft,
+  title     = {Fine-Tuning Image-Conditional Diffusion Models is Easier than You Think},
+  author    = {Martin Garcia, Gonzalo and Abou Zeid, Karim and Schmidt, Christian and de Geus, Daan and Hermans, Alexander and Leibe, Bastian},
+  booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+  year      = {2025}
 }
 ```
