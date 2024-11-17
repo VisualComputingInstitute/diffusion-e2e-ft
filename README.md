@@ -30,8 +30,8 @@ pipe = DiffusionPipeline.from_pretrained(
     custom_pipeline="GonzaloMG/marigold-e2e-ft-depth",
 ).to("cuda")
 depth = pipe(image)
-pipe.image_processor.visualize_depth(depth.prediction)[0].save("lego_depth.png")
-pipe.image_processor.export_depth_to_16bit_png(depth.prediction)[0].save("lego_depth_16bit.png")
+pipe.image_processor.visualize_depth(depth.prediction)[0].save("depth.png")
+pipe.image_processor.export_depth_to_16bit_png(depth.prediction)[0].save("depth_16bit.png")
 
 
 # Normals
@@ -40,7 +40,7 @@ pipe = DiffusionPipeline.from_pretrained(
     custom_pipeline="GonzaloMG/marigold-e2e-ft-normals",
 ).to("cuda")
 normals = pipe(image)
-pipe.image_processor.visualize_normals(normals.prediction)[0].save("lego_normals.png")
+pipe.image_processor.visualize_normals(normals.prediction)[0].save("normals.png")
 ```
 
 ## 🔧 Development Setup
