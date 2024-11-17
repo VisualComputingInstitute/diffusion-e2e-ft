@@ -10,7 +10,40 @@
 - 2024-09-24: Evaluation code release.
 - 2024-09-18: Inference code release.
 
-## 🔧 Setup
+## ⏩ Quickstart
+
+```bash
+pip install torch diffusers transformers accelerate
+```
+
+```python
+from diffusers import DiffusionPipeline
+import diffusers
+
+image = diffusers.utils.load_image(
+    "https://gonzalomartingarcia.github.io/diffusion-e2e-ft/static/lego.jpg"
+)
+
+# Depth
+pipe = DiffusionPipeline.from_pretrained(
+    "GonzaloMG/marigold-e2e-ft-depth",
+    custom_pipeline="GonzaloMG/marigold-e2e-ft-depth",
+).to("cuda")
+depth = pipe(image)
+pipe.image_processor.visualize_depth(depth.prediction)[0].save("lego_depth.png")
+pipe.image_processor.export_depth_to_16bit_png(depth.prediction)[0].save("lego_depth_16bit.png")
+
+
+# Normals
+pipe = DiffusionPipeline.from_pretrained(
+    "GonzaloMG/stable-diffusion-e2e-ft-normals",
+    custom_pipeline="GonzaloMG/marigold-e2e-ft-normals",
+).to("cuda")
+normals = pipe(image)
+pipe.image_processor.visualize_normals(normals.prediction)[0].save("lego_normals.png")
+```
+
+## 🔧 Development Setup
 Tested with Python 3.10.
  1. Clone repository:
 
