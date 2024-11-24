@@ -6,6 +6,7 @@
 
 ## 📢 News
 - 2024-10-28: Accepted to WACV 2025.
+- 2024-10-17: Accepted to NeurIPS 2024 AFM Workshop.
 - 2024-10-23: Training code release.
 - 2024-09-24: Evaluation code release.
 - 2024-09-18: Inference code release.
