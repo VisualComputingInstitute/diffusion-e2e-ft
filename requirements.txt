@@ -16,4 +16,4 @@ tabulate
 pandas
 wandb
 datasets
-peft
+peft<0.14
