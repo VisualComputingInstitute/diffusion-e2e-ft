@@ -386,7 +386,7 @@ If you use our work in your research, please use the following BibTeX entry.
 ```
 @InProceedings{martingarcia2024diffusione2eft,
   title     = {Fine-Tuning Image-Conditional Diffusion Models is Easier than You Think},
-  author    = {Martin Garcia, Gonzalo and Abou Zeid, Karim and Schmidt, Christian and de Geus, Daan and Hermans, Alexander and Leibe, Bastian},
+  author    = {Martin Garcia, Gonzalo and Knaebel, Karim and Schmidt, Christian and de Geus, Daan and Hermans, Alexander and Leibe, Bastian},
   booktitle = {Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
   year      = {2025}
 }
