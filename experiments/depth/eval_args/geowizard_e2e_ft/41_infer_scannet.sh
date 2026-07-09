@@ -4,7 +4,7 @@ set -x
 
 # add
 checkpoint="geowizard-e2e-ft"
-checkpoint_path="GonzaloMG/$checkpoint"
+checkpoint_path="GonzaloMartinGarcia/$checkpoint"
 
 # add
 python Marigold/infer.py \

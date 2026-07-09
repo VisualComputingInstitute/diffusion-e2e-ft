@@ -31,7 +31,7 @@ if __name__=="__main__":
     parser.add_argument(
         "--pretrained_model_path",
         type=str,
-        default='GonzaloMG/geowizard-e2e-ft', # add
+        default='GonzaloMartinGarcia/geowizard-e2e-ft', # add
         help="pretrained model path from hugging face or local dir",
     )    
     parser.add_argument(

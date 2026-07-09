@@ -1,7 +1,7 @@
 #!/bin/bash
 
 accelerate launch training/train.py \
-  --pretrained_model_name_or_path "GonzaloMG/marigold-normals" \
+  --pretrained_model_name_or_path "GonzaloMartinGarcia/marigold-normals" \
   --modality "normals" \
   --noise_type "zeros" \
   --max_train_steps 20000 \

@@ -1,6 +1,6 @@
 # Fine-Tuning Image-Conditional Diffusion Models
 
-[[`Paper`](https://arxiv.org/abs/2409.11355)] [[`Project Page`](https://gonzalomartingarcia.github.io/diffusion-e2e-ft/)] [[`HF demo depth`](https://huggingface.co/spaces/GonzaloMG/marigold-e2e-ft-depth)] [[`HF demo normals`](https://huggingface.co/spaces/GonzaloMG/marigold-e2e-ft-normals)] [[`BibTeX`](#-Citation)]
+[[`Paper`](https://arxiv.org/abs/2409.11355)] [[`Project Page`](https://gonzalomartingarcia.github.io/diffusion-e2e-ft/)] [[`HF demo depth`](https://huggingface.co/spaces/GonzaloMartinGarcia/marigold-e2e-ft-depth)] [[`HF demo normals`](https://huggingface.co/spaces/GonzaloMartinGarcia/marigold-e2e-ft-normals)] [[`BibTeX`](#-Citation)]
 
 <img src="assets/teaser_images.png" width="600" alt="Teaser Images">
 
@@ -27,8 +27,8 @@ image = diffusers.utils.load_image(
 
 # Depth
 pipe = DiffusionPipeline.from_pretrained(
-    "GonzaloMG/marigold-e2e-ft-depth",
-    custom_pipeline="GonzaloMG/marigold-e2e-ft-depth",
+    "GonzaloMartinGarcia/marigold-e2e-ft-depth",
+    custom_pipeline="GonzaloMartinGarcia/marigold-e2e-ft-depth",
 ).to("cuda")
 depth = pipe(image)
 pipe.image_processor.visualize_depth(depth.prediction)[0].save("depth.png")
@@ -37,8 +37,8 @@ pipe.image_processor.export_depth_to_16bit_png(depth.prediction)[0].save("depth_
 
 # Normals
 pipe = DiffusionPipeline.from_pretrained(
-    "GonzaloMG/stable-diffusion-e2e-ft-normals",
-    custom_pipeline="GonzaloMG/marigold-e2e-ft-normals",
+    "GonzaloMartinGarcia/stable-diffusion-e2e-ft-normals",
+    custom_pipeline="GonzaloMartinGarcia/marigold-e2e-ft-normals",
 ).to("cuda")
 normals = pipe(image)
 pipe.image_processor.visualize_normals(normals.prediction)[0].save("normals.png")
@@ -70,16 +70,16 @@ Since the fine-tuned models are single-step deterministic models, the noise shou
 
 | Models                        |  Diffusion Estimator          |  Stable Diffusion + E2E FT                  | Diffusion Estimator + E2E FT        |
 |-------------------------------|-------------------------------|---------------------------------------------|-------------------------------------|
-| **Marigold (Depth)**          | `prs-eth/marigold-depth-v1-0` | `GonzaloMG/stable-diffusion-e2e-ft-depth`   | `GonzaloMG/marigold-e2e-ft-depth`   |
-| **Marigold (Normals)**        | `GonzaloMG/marigold-normals`  | `GonzaloMG/stable-diffusion-e2e-ft-normals` | `GonzaloMG/marigold-e2e-ft-normals` |
-| **GeoWizard (Depth&Normals)** | `lemonaddie/geowizard`        | N/A                                         |  `GonzaloMG/geowizard-e2e-ft`       |
+| **Marigold (Depth)**          | `prs-eth/marigold-depth-v1-0` | `GonzaloMartinGarcia/stable-diffusion-e2e-ft-depth`   | `GonzaloMartinGarcia/marigold-e2e-ft-depth`   |
+| **Marigold (Normals)**        | `GonzaloMartinGarcia/marigold-normals`  | `GonzaloMartinGarcia/stable-diffusion-e2e-ft-normals` | `GonzaloMartinGarcia/marigold-e2e-ft-normals` |
+| **GeoWizard (Depth&Normals)** | `lemonaddie/geowizard`        | N/A                                         |  `GonzaloMartinGarcia/geowizard-e2e-ft`       |
 
 ## 🏃 Inference
 
 1. Marigold checkpoints:
 ```bash
 python Marigold/run.py \
-    --checkpoint="GonzaloMG/marigold-e2e-ft-depth" \
+    --checkpoint="GonzaloMartinGarcia/marigold-e2e-ft-depth" \
     --modality depth \
     --input_rgb_dir="input" \
     --output_dir="output/marigold_ft"
@@ -87,7 +87,7 @@ python Marigold/run.py \
 
 ```bash
 python Marigold/run.py \
-    --checkpoint="GonzaloMG/marigold-e2e-ft-normals" \
+    --checkpoint="GonzaloMartinGarcia/marigold-e2e-ft-normals" \
     --modality normals \
     --input_rgb_dir="input" \
     --output_dir="output/marigold_ft"
@@ -115,7 +115,7 @@ python Marigold/run.py \
 
 ```bash
 python GeoWizard/run_infer.py \
-    --pretrained_model_path="GonzaloMG/geowizard-e2e-ft" \
+    --pretrained_model_path="GonzaloMartinGarcia/geowizard-e2e-ft" \
     --domain indoor \
     --input_dir="input" \
     --output_dir="output/geowizard_ft"

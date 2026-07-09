@@ -61,7 +61,7 @@ if "__main__" == __name__:
     parser.add_argument(
         "--checkpoint",
         type=str,
-        default="GonzaloMG/marigold-e2e-ft-depth", # add
+        default="GonzaloMartinGarcia/marigold-e2e-ft-depth", # add
         help="Checkpoint path or hub name.",
     )
 
